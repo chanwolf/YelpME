@@ -66,7 +66,7 @@
 		Boolean closed = randomR.getBoolean("is_closed");
 		JSONObject location = randomR.getJSONObject("location");
 		String address = location.optString("address1") + ", " + location.optString("city") + ", " + location.optString("state") + " " + location.optString("zip_code");
-		
+		String yelpURL = randomR.optString("url");
 		
 		JSONArray category= randomR.getJSONArray("categories");
 		
@@ -104,16 +104,16 @@
 	    
 	    <!-- Title -->
 	    <div class="card-title-rating">
-   		    <h6 class="card-title"><%=categories %> </h6>
+   		    <h6 class="card-title"><%=restPrice + " " +categories %> </h6>
    		    <%
    		    	double temp = rating;
    		    	int wholeRating = (int) temp; 
    		    	temp -= wholeRating;
-   		    	
-   		    	if(temp == 1)
+   		    	if(temp == 0.0)
    		    		out.println("<span><i class='fa fa-star' aria-hidden='true'></i></span>");
    		    	else if(temp == 0.5)
-   		    		out.println("<span><i class='fa fa-star-half-o' aria-hidden='true'></i></span>");
+   		    		out.println("<span><i class='fas fa-star-half-alt'></i></span>");
+   		    	
    		    	
    		    	for(int i=0; i<rating-1 ; ++i){
    		    		out.println("<span><i class='fa fa-star' aria-hidden='true'></i></span>");
@@ -126,17 +126,18 @@
 	    </div>
 	    <hr class="hr-light">
 	    <!-- Text -->
-	    <p class="card-text white-text mb-4">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+	    <p class="card-text white-text mb-4">
+	    	Address: <%=address %>
+	    	<br />
+	    	Phone: <%=restPhone %>
+	    </p>
 	    <!-- Link -->
-	    <a href="#!" class="white-text d-flex justify-content-end"><h5>Read more <i class="fa fa-angle-double-right"></i></h5></a>
+	    <a href="<%=yelpURL %>" class="white-text d-flex justify-content-end"><h5>Read more <i class="fa fa-angle-double-right"></i></h5></a>
 	
 	  </div>
 	</div>
 	<!-- Card Dark Outline -->
-
-<!-- Social shares button -->
-<!-- <i class="fa fa-yelp" aria-hidden="true"></i>  -->
-
+	
 
 	
 
