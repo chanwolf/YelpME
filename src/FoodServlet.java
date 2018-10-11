@@ -62,7 +62,6 @@ public class FoodServlet extends HttpServlet {
     	String location = request.getParameter("location").replaceAll(" ", "");
     	int totalResult, maxOffset, limit, randIndex;
     	limit = 50;
-    	randIndex = getRandomInt(limit-1);
     	// MAX POSSIBLE RESULTS IS 1000, so last page would be 950 if it goes over the 1000 cap
     	String apiURL = yelpAPIHost + SEARCH_PATH + "?term=" + cuisine + "&location="+location; // + "&offset=1&limit=50";
     	totalResult = getTotalSize(apiURL);
@@ -85,6 +84,16 @@ public class FoodServlet extends HttpServlet {
     	}
     	JSONObject responseObj = res.getBody().getObject();
     	JSONArray responseArray = responseObj.getJSONArray("businesses");
+    	randIndex = getRandomInt(responseArray.length()-1);
+    	
+      //PrintWriter out = response.getWriter();
+      //out.println("<html>");
+      //out.println("<head><title>YelpME</title></head>");
+      //out.println("<body><p>TOTAL RESULTS: " + totalResult + "<br />RANDOM OFFSET and SELECTOR: " + apiURL + "<p> " + randIndex + "</p></body></html>");
+        
+
+    	
+    	
     	
     	JSONObject randomResturant = responseArray.getJSONObject(randIndex);
     	
@@ -107,12 +116,6 @@ public class FoodServlet extends HttpServlet {
         
         
 //      response.getWriter().write(randomResturant.toString());
-//        PrintWriter out = response.getWriter();
-//        out.println("<html>");
-//        out.println("<head><title>YelpME</title></head>");
-//        
-//        // 0-49 only for selecting outta 50 results
-//        out.println("<body><p>TOTAL RESULTS: " + totalResult + "<br />RANDOM OFFSET and SELECTOR: " + apiURL + "<p>" + responseArray.getJSONObject(randIndex) + "</p></body></html>");
 
         
 	}
